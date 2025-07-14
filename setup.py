@@ -23,7 +23,7 @@ def read_requirements():
 
 setup(
     name="meridianalgo",
-    version="0.1.1",
+    version="0.1.2",
     author="Your Name",
     author_email="meridianalgo@gmail.com",
     description="A Python library for algorithmic trading and financial analysis",
@@ -61,5 +61,6 @@ setup(
     project_urls={
         "Bug Reports": "https://github.com/MeridianAlgo/Packages/issues",
         "Source": "https://github.com/MeridianAlgo/Packages",
+        "Documentation": "https://github.com/MeridianAlgo/Packages#readme",
     },
 ) 

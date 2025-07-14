@@ -149,7 +149,7 @@ pnl = TradeUtils.calculate_pnl(
 
 ## Documentation
 
-For detailed documentation, visit [https://meridianalgo.readthedocs.io/](https://meridianalgo.readthedocs.io/)
+For detailed documentation, see the [GitHub README](https://github.com/MeridianAlgo/Packages#readme).
 
 ## API Reference
 
