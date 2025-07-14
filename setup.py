@@ -56,15 +56,10 @@ setup(
             "flake8>=3.8",
             "mypy>=0.800",
         ],
-        "docs": [
-            "sphinx>=4.0",
-            "sphinx-rtd-theme>=1.0",
-        ],
     },
     keywords="trading, algorithmic, finance, backtesting, technical analysis",
     project_urls={
         "Bug Reports": "https://github.com/MeridianAlgo/Packages/issues",
         "Source": "https://github.com/MeridianAlgo/Packages",
-        "Documentation": "https://meridianalgo.readthedocs.io/",
     },
 ) 
