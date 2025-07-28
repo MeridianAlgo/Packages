@@ -1,267 +1,228 @@
-# MeridianAlgo
+# 🚀 MeridianAlgo - Advanced Stock Prediction System
 
-A comprehensive Python library for algorithmic trading and financial analysis. MeridianAlgo provides tools for backtesting trading strategies, calculating technical indicators, and managing trading operations.
+[![Python 3.8+](https://img.shields.io/badge/python-3.8+-blue.svg)](https://www.python.org/downloads/)
+[![PyPI version](https://badge.fury.io/py/meridianalgo.svg)](https://badge.fury.io/py/meridianalgo)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![Yahoo Finance](https://img.shields.io/badge/Data-Yahoo%20Finance-purple.svg)](https://finance.yahoo.com/)
 
-## Features
+**Advanced AI-powered stock prediction system using Yahoo Finance - Zero setup, no API keys required!**
 
-- **Trading Engine**: Live trading operations and position management
-- **Backtest Engine**: Historical strategy testing with performance metrics
-- **Technical Indicators**: Comprehensive collection of technical analysis indicators
-- **Utility Functions**: Risk management and performance calculation tools
+## ⚡ Quick Start
 
-## Installation
-
-### From PyPI (when published)
 ```bash
 pip install meridianalgo
 ```
 
-### From Source
+```python
+from meridianalgo import MLPredictor
+
+# Initialize predictor (no API keys needed!)
+predictor = MLPredictor()
+
+# Get predictions for any stock
+result = predictor.predict_ml('AAPL', days=60, epochs=10)
+
+print(f"Current Price: ${result['current_price']:.2f}")
+print(f"Day +1 Prediction: ${result['predictions'][0]:.2f}")
+print(f"Confidence: {result['confidence']:.1f}%")
+```
+
+## 🎯 Key Features
+
+- **🆓 Zero Setup**: No API keys, no registration - uses free Yahoo Finance data
+- **🧠 Advanced AI**: 62 sophisticated features with deep neural networks
+- **⚡ Real-Time Learning**: Automated accuracy validation and model adaptation
+- **📊 Comprehensive Analysis**: Technical indicators, market sentiment, and volatility analysis
+- **🔄 Smart Caching**: Intelligent prediction caching to avoid redundant analysis
+- **📈 Multi-Symbol Support**: Analyze any stock symbol with persistent data storage
+- **🛡️ Prediction Validation**: Multi-tier accuracy system with intelligent failsafes
+
+## 📊 System Performance
+
+```
+🎯 Data Source: Yahoo Finance (Free, Real-time)
+🔧 Setup Time: 0 seconds (no API keys required)
+📈 Features: 62 advanced technical indicators
+🧠 Model: Deep neural networks with attention mechanisms
+⚡ Speed: Instant analysis with smart caching
+🔄 Learning: Continuous model improvement
+```
+
+## 💻 Usage Examples
+
+### Basic Stock Prediction
+
+```python
+from meridianalgo import MLPredictor
+
+predictor = MLPredictor()
+
+# Simple prediction
+result = predictor.predict_simple('NVDA', days=30)
+print(f"NVIDIA Prediction: ${result['predictions'][0]:.2f}")
+
+# Advanced ML prediction
+result = predictor.predict_ml('TSLA', days=60, epochs=15)
+print(f"Tesla Confidence: {result['confidence']:.1f}%")
+```
+
+### Technical Analysis
+
+```python
+from meridianalgo import Indicators
+
+indicators = Indicators()
+
+# Calculate technical indicators
+data = indicators.get_stock_data('AAPL', period='1y')
+rsi = indicators.calculate_rsi(data['Close'])
+macd = indicators.calculate_macd(data['Close'])
+
+print(f"Current RSI: {rsi[-1]:.2f}")
+print(f"MACD Signal: {macd['signal'][-1]:.4f}")
+```
+
+### Ensemble Models
+
+```python
+from meridianalgo import EnsembleModels
+
+ensemble = EnsembleModels()
+
+# Train ensemble models
+data = ensemble.get_training_data('GOOGL', days=90)
+training_results = ensemble.train_ensemble(data['X'], data['y'], epochs=20)
+
+# Make predictions
+predictions = ensemble.predict_ensemble(data['X'][-1:], forecast_days=5)
+print(f"5-day predictions: {predictions['ensemble_predictions']}")
+```
+
+## 🛡️ Prediction Validation & Failsafes
+
+### Multi-Tier Accuracy System
+- **🎯 Excellent (<1% error)**: Highest quality predictions
+- **✅ Good (<2% error)**: Strong prediction reliability
+- **⚠️ Acceptable (<3% error)**: Minimum acceptable threshold
+- **❌ Poor (>3% error)**: Triggers conservative fallback system
+
+### Intelligent Failsafes
+1. **Extreme Change Detection**: Flags predictions >50% change as unreliable
+2. **Consistency Validation**: Ensures smooth day-to-day prediction transitions
+3. **Confidence Thresholds**: Requires minimum 60% model confidence
+4. **Volatility Context**: Adjusts expectations based on stock stability
+5. **Volume Validation**: Considers trading volume for prediction reliability
+6. **Conservative Fallbacks**: Applies ultra-safe predictions when validation fails
+
+## 📦 Installation
+
+### Standard Installation
 ```bash
-git clone https://github.com/MeridianAlgo/Packages.git
-cd meridianalgo
-pip install -e .
+pip install meridianalgo
 ```
 
-## Quick Start
-
-### Basic Usage
-
-```python
-import pandas as pd
-from meridianalgo import TradingEngine, BacktestEngine, Indicators, TradeUtils
-
-# Initialize trading engine
-engine = TradingEngine(paper_trading=True)
-engine.connect()
-
-# Get account information
-account_info = engine.get_account_info()
-print(f"Account Balance: {account_info['balance']}")
-
-# Place a trade
-order = engine.place_order(
-    symbol="BTC/USD",
-    side="buy",
-    quantity=0.1,
-    order_type="market"
-)
-print(f"Order placed: {order}")
-```
-
-### Backtesting a Strategy
-
-```python
-# Load historical data
-data = pd.read_csv('historical_data.csv')
-data['timestamp'] = pd.to_datetime(data['timestamp'])
-
-# Initialize backtest engine
-backtest = BacktestEngine(initial_capital=10000)
-
-# Load data
-backtest.load_data(data)
-
-# Define a simple moving average crossover strategy
-def ma_crossover_strategy(row, positions, capital, fast_period=10, slow_period=20):
-    """Simple moving average crossover strategy"""
-    if len(backtest.data) < slow_period:
-        return None
-    
-    # Calculate moving averages
-    fast_ma = backtest.data['close'].rolling(fast_period).mean().iloc[-1]
-    slow_ma = backtest.data['close'].rolling(slow_period).mean().iloc[-1]
-    
-    current_price = row['close']
-    
-    # Buy signal: fast MA crosses above slow MA
-    if fast_ma > slow_ma and 'BTC/USD' not in positions:
-        quantity = capital * 0.1 / current_price  # Use 10% of capital
-        return {
-            'symbol': 'BTC/USD',
-            'action': 'buy',
-            'quantity': quantity
-        }
-    
-    # Sell signal: fast MA crosses below slow MA
-    elif fast_ma < slow_ma and 'BTC/USD' in positions:
-        return {
-            'symbol': 'BTC/USD',
-            'action': 'sell',
-            'quantity': positions['BTC/USD']['quantity']
-        }
-    
-    return None
-
-# Run backtest
-results = backtest.run_backtest(ma_crossover_strategy)
-print(f"Total Return: {results['total_return']:.2%}")
-print(f"Sharpe Ratio: {results['sharpe_ratio']:.2f}")
-print(f"Max Drawdown: {results['max_drawdown']:.2%}")
-```
-
-### Using Technical Indicators
-
-```python
-# Calculate RSI
-rsi = Indicators.rsi(data['close'], period=14)
-
-# Calculate MACD
-macd_line, signal_line, histogram = Indicators.macd(data['close'])
-
-# Calculate Bollinger Bands
-upper_band, middle_band, lower_band = Indicators.bollinger_bands(data['close'])
-
-# Calculate Stochastic Oscillator
-k_percent, d_percent = Indicators.stochastic(
-    data['high'], 
-    data['low'], 
-    data['close']
-)
-```
-
-### Risk Management
-
-```python
-# Calculate position size based on risk
-position_size = TradeUtils.calculate_position_size(
-    capital=10000,
-    risk_percent=2,  # Risk 2% of capital
-    entry_price=50000,
-    stop_loss=48000
-)
-
-# Calculate risk-reward ratio
-rr_ratio = TradeUtils.calculate_risk_reward_ratio(
-    entry_price=50000,
-    target_price=55000,
-    stop_loss=48000
-)
-
-# Calculate P&L
-pnl = TradeUtils.calculate_pnl(
-    entry_price=50000,
-    exit_price=52000,
-    quantity=0.1,
-    side="long"
-)
-```
-
-## Documentation
-
-For detailed documentation, see the [GitHub README](https://github.com/MeridianAlgo/Packages#readme).
-
-## API Reference
-
-### TradingEngine
-
-Main class for live trading operations.
-
-```python
-engine = TradingEngine(api_key="your_api_key", paper_trading=True)
-```
-
-**Methods:**
-- `connect()`: Connect to trading platform
-- `get_account_info()`: Get account information
-- `place_order()`: Place a trading order
-- `get_positions()`: Get current positions
-- `get_trade_history()`: Get trade history
-- `calculate_pnl()`: Calculate profit/loss
-
-### BacktestEngine
-
-Class for backtesting trading strategies.
-
-```python
-backtest = BacktestEngine(initial_capital=10000)
-```
-
-**Methods:**
-- `load_data()`: Load historical data
-- `run_backtest()`: Run backtest with strategy
-- `get_equity_curve()`: Get equity curve data
-- `get_trades()`: Get trade data
-
-### Indicators
-
-Static methods for technical analysis indicators.
-
-**Available Indicators:**
-- `sma()`: Simple Moving Average
-- `ema()`: Exponential Moving Average
-- `rsi()`: Relative Strength Index
-- `macd()`: MACD
-- `bollinger_bands()`: Bollinger Bands
-- `stochastic()`: Stochastic Oscillator
-- `atr()`: Average True Range
-- `williams_r()`: Williams %R
-- `cci()`: Commodity Channel Index
-
-### TradeUtils
-
-Utility functions for trading operations.
-
-**Available Functions:**
-- `calculate_position_size()`: Calculate position size based on risk
-- `calculate_risk_reward_ratio()`: Calculate risk-reward ratio
-- `calculate_pnl()`: Calculate profit/loss
-- `calculate_sharpe_ratio()`: Calculate Sharpe ratio
-- `calculate_max_drawdown()`: Calculate maximum drawdown
-- `calculate_win_rate()`: Calculate win rate
-- `format_currency()`: Format currency amounts
-- `validate_trade_params()`: Validate trade parameters
-
-## Examples
-
-See the `examples/` directory for more detailed examples:
-
-- `simple_strategy.py`: Basic moving average strategy
-- `rsi_strategy.py`: RSI-based trading strategy
-- `risk_management.py`: Risk management examples
-- `performance_analysis.py`: Performance analysis examples
-
-## Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## Testing
-
-Run the test suite:
-
+### With ML Dependencies
 ```bash
-pytest tests/
+pip install meridianalgo[ml]
 ```
 
-Run with coverage:
-
+### With Visualization
 ```bash
-pytest --cov=meridianalgo tests/
+pip install meridianalgo[visualization]
 ```
 
-## License
+### Full Installation
+```bash
+pip install meridianalgo[ml,visualization]
+```
+
+## 🔧 System Requirements
+
+- **Python**: 3.8 or higher
+- **Memory**: 4GB RAM minimum, 8GB recommended
+- **Storage**: 500MB free space
+- **Internet**: Required for real-time stock data
+- **OS**: Windows, macOS, Linux
+
+## 📚 API Reference
+
+### MLPredictor Class
+
+```python
+class MLPredictor:
+    def predict_simple(self, symbol: str, days: int = 60, forecast_days: int = 5) -> Dict
+    def predict_ml(self, symbol: str, days: int = 60, epochs: int = 10, forecast_days: int = 5) -> Dict
+```
+
+### Indicators Class
+
+```python
+class Indicators:
+    def calculate_rsi(self, prices: pd.Series, period: int = 14) -> pd.Series
+    def calculate_macd(self, prices: pd.Series) -> Dict
+    def calculate_bollinger_bands(self, prices: pd.Series, period: int = 20) -> Dict
+```
+
+### EnsembleModels Class
+
+```python
+class EnsembleModels:
+    def train_ensemble(self, X: np.ndarray, y: np.ndarray, epochs: int = 10) -> Dict
+    def predict_ensemble(self, X: np.ndarray, forecast_days: int = 5) -> Dict
+```
+
+## 🎯 Advanced Features
+
+### 62 Technical Features
+1. **Market Microstructure**: VWAP, price ranges, volume-price trends
+2. **Multi-Timeframe Momentum**: 7 different time horizons (1, 2, 3, 5, 8, 13, 21 days)
+3. **Advanced Volatility**: GARCH-like modeling with clustering
+4. **Market Regime Detection**: Trend strength and mean reversion
+5. **Fractal Analysis**: Hurst exponent and fractal dimensions
+6. **Technical Patterns**: Support/resistance and breakout probability
+
+### Neural Network Architecture
+- **Multi-scale feature extraction** with 1024, 512, 256-dim extractors
+- **16-head attention mechanism** for pattern recognition
+- **6 deep transformer blocks** for sequential processing
+- **7 prediction heads** with uncertainty quantification
+- **Advanced weight initialization** for optimal convergence
+
+## 📊 Data Sources & Privacy
+
+### Data Sources
+- **Stock Data**: Yahoo Finance (yfinance)
+- **Technical Indicators**: Custom implementations
+- **Market Data**: Real-time price feeds
+- **Validation**: Historical price verification
+
+### Privacy & Security
+- **No personal data** collection
+- **Local processing** only
+- **No data transmission** except for stock price fetching
+- **Open source** and transparent
+
+## 🤝 Contributing
+
+We welcome contributions! Please see our [Contributing Guide](https://github.com/MeridianAlgo/Packages/blob/main/CONTRIBUTING.md) for details.
+
+## 📄 License
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Disclaimer
+## 🙏 Acknowledgments
 
-This library is for educational and research purposes only. Trading involves substantial risk of loss and is not suitable for all investors. Past performance does not guarantee future results.
+- **PyTorch** team for the ML framework
+- **Yahoo Finance** for stock data API
+- **Rich** library for beautiful terminal output
+- **Open source community** for inspiration and tools
 
-## Support
+---
 
-- Documentation: [https://meridianalgo.readthedocs.io/](https://meridianalgo.readthedocs.io/)
-- Issues: [https://github.com/MeridianAlgo/Packages/issues](https://github.com/MeridianAlgo/Packages/issues)
-- Email: meridianalgo@gmail.com
+**⚡ Ready to start predicting stocks with zero setup? Install now!**
 
-## Changelog
+```bash
+pip install meridianalgo
+```
 
-### Version 0.1.0
-- Initial release
-- Basic trading engine functionality
-- Backtesting engine with performance metrics
-- Technical indicators collection
-- Utility functions for risk management 
+**🎯 Advanced predictions with rigorous validation and intelligent failsafes!**

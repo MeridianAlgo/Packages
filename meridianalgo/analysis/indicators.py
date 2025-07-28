@@ -259,4 +259,4 @@ class Indicators:
         mean_deviation = typical_price.rolling(window=period).apply(lambda x: np.mean(np.abs(x - x.mean())))
         
         cci = (typical_price - sma_tp) / (0.015 * mean_deviation)
-        return cci 
+        return cci

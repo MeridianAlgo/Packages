@@ -212,4 +212,4 @@ class BacktestEngine:
         Returns:
             pd.DataFrame: Trade data
         """
-        return pd.DataFrame(self.trades) 
+        return pd.DataFrame(self.trades)

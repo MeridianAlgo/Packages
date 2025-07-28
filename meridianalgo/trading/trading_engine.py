@@ -136,4 +136,4 @@ class TradingEngine:
         if avg_price == 0:
             return 0.0
         
-        return (current_price - avg_price) * quantity 
+        return (current_price - avg_price) * quantity

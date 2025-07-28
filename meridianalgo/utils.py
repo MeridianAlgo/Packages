@@ -305,4 +305,4 @@ class TradeUtils:
         if tick_size <= 0:
             return price
         
-        return round(price / tick_size) * tick_size 
+        return round(price / tick_size) * tick_size
