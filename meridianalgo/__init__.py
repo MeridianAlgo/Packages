@@ -9,23 +9,23 @@ Organized modules:
 - utils: Utility functions and helpers
 """
 
-__version__ = "0.3.1"
+__version__ = "0.3.2"
 __author__ = "MeridianAlgo"
 __email__ = "meridianalgo@gmail.com"
 
-# Import from organized modules
-from .prediction import MLPredictor, EnsembleModels
-from .analysis import Indicators, AIAnalyzer
-from .trading import TradingEngine, BacktestEngine
-from .utils import TradeUtils
+# Import submodules
+from . import prediction
+from . import analysis
+from . import trading
 
-# Backward compatibility - direct imports
+# Import main classes for backward compatibility
 from .prediction.ml_predictor import MLPredictor
 from .prediction.ensemble_models import EnsembleModels
 from .analysis.indicators import Indicators
 from .analysis.ai_analyzer import AIAnalyzer
 from .trading.trading_engine import TradingEngine
 from .trading.backtest_engine import BacktestEngine
+from .utils import TradeUtils
 
 __all__ = [
     # Main classes

@@ -23,7 +23,7 @@ def read_requirements():
 
 setup(
     name="meridianalgo",
-    version="0.3.1",
+    version="0.3.2",
     author="MeridianAlgo",
     author_email="meridianalgo@gmail.com",
     description="Advanced stock prediction system using Yahoo Finance - Zero setup, no API keys required",
